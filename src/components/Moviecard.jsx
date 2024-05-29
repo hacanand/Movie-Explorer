@@ -1,11 +1,11 @@
 import React, { useState, useEffect ,useContext} from 'react'
-import { Link } from 'react-router-dom'
+ 
 import noimage from '../assets/images/no-image.jpg'
 import { motion } from 'framer-motion'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { AiFillStar, AiOutlineStar} from 'react-icons/ai';
-import { toast } from 'react-toastify';
+ 
+ 
 import Contextpage from '../Contextpage';
 
 function Moviecard({ movie }) {
@@ -21,18 +21,18 @@ function Moviecard({ movie }) {
         }
     }, [movie.id]);
 
-    const BookmarkMovie = () => {
-        if (!user) {
-            toast.info("To bookmark this movie, please log in.");
-        } else {
-            setIsBookmarked(!isBookmarked)
-            if (isBookmarked) {
-                localStorage.removeItem(movie.id);
-            } else {
-                localStorage.setItem(movie.id, JSON.stringify(movie));
-            }
-        }
-    }
+    // const BookmarkMovie = () => {
+    //     if (!user) {
+    //         toast.info("To bookmark this movie, please log in.");
+    //     } else {
+    //         setIsBookmarked(!isBookmarked)
+    //         if (isBookmarked) {
+    //             localStorage.removeItem(movie.id);
+    //         } else {
+    //             localStorage.setItem(movie.id, JSON.stringify(movie));
+    //         }
+    //     }
+    // }
 
     return (
       <motion.div

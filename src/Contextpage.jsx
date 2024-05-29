@@ -37,12 +37,19 @@ export function MovieProvider({ children }) {
 
 
   const filteredGenre = async () => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?with_genres=${activegenre}&api_key=${APIKEY}&with_origin_country=IN&page=${page}`
-    );
-    const filteredGenre = await data.json();
-    setMovies(movies.concat(filteredGenre.results)); // Concat new movies with previous movies, on genre change movies are reset to [] so that only movies of new genre will appear, check out useEffect on top for more information.
-    setTotalPage(filteredGenre.total_pages);
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://api4.thetvdb.com/v4/movies/filter?country=usa&genre=${activegenre}&lang=eng`,
+      headers: {
+        Authorization: APIKEY,
+      },
+    };
+    const res=await axios.request(config)
+
+  //  console.log(res)
+    setMovies(res.data.data); // Concat new movies with previous movies, on genre change movies are reset to [] so that only movies of new genre will appear, check out useEffect on top for more information.
+    setTotalPage(res.data.page_size);
     setLoader(false);
     setHeader("Genres");
   };
@@ -88,7 +95,7 @@ let config = {
 
     const res = await axios.request(config)
     setTrending(res.data.data);
-    //console.log(res.data.data)
+    console.log(res.data.data)
     setTotalPage(res.data.page_size);
     setLoader(false);
     setHeader("Trending Movies");
