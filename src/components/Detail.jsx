@@ -25,21 +25,20 @@ const [loader, setLoader] = useState(true);
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://api4.thetvdb.com/v4/movies/${id}/extended?short=false
-`,
+      url: `https://api4.thetvdb.com/v4/movies/${id}/extended?short=false`,
       headers: {
         Authorization: APIKEY,
       },
     };
 
-    if(localStorage.getItem('moviedet')){
-      setMoviedet(JSON.parse(localStorage.getItem('moviedet')));
-      setLoader(false);
-      return
-    }
+    // if(localStorage.getItem('moviedet')){
+    //   setMoviedet(JSON.parse(localStorage.getItem('moviedet')));
+    //   setLoader(false);
+    //   return
+    // }
     const res=await axios.request(config)
    // console.log(res.data.data)
-    localStorage.setItem('moviedet', JSON.stringify(res.data.data));
+    // localStorage.setItem('moviedet', JSON.stringify(res.data.data));
     setMoviedet(res.data.data);
     setLoader(false);
   };
@@ -123,7 +122,6 @@ const [loader, setLoader] = useState(true);
                         <td className="text-left capitalize">Original Title</td>
                         <td className="text-right">{moviedet?.name}</td>
                       </tr>
-
                       <tr>
                         <td className="text-left capitalize py-4 ">
                           name Translations
@@ -184,13 +182,13 @@ const [loader, setLoader] = useState(true);
                       <tr>
                         <td className="text-left capitalize py-4 ">studios</td>
                         <td className="text-right capitalize py-4 ">
-                          {moviedet?.studios.map((studio) => (
-                            <>
-                              <p>{studio.id}</p>
+                          {moviedet?.studios?.map((studio) => (
+                            <div key={studio.id}>
+                              <p>{studio?.name}</p>
                               <p>
                                 Parent Studio :{studio?.parentStudio || " ..."}
                               </p>
-                            </>
+                            </div>
                           ))}
                         </td>
                       </tr>
@@ -279,26 +277,22 @@ const [loader, setLoader] = useState(true);
                   <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
                     {Object.values(moviedet?.companies)
                       .flat()
-                      .map(
-                        (company) => (
-                          // console.log(company.companyType),
-                          (
-                            <div
-                              key={company.id}
-                              className="flex flex-col items-center gap-2"
-                            >
-                              <div className="bg-gray-800 p-2 rounded-xl">
-                                <h1 className="text-white font-bold">
-                                  {company.name}
-                                </h1>
-                                <p className="text-blue-300">
-                                  {company.companyType.companyTypeName}
-                                </p>
-                              </div>
-                            </div>
-                          )
-                        )
-                      )}
+                      .map((company) => (
+                        // console.log(company.companyType),
+                        <div
+                          key={company.id}
+                          className="flex  flex-col items-center gap-2"
+                        >
+                          <div className="bg-gray-800 w-48 h-48 p-2 flex justify-center flex-col items-center gap-2 rounded-xl">
+                            <h1 className="text-white  font-bold">
+                              {company.name}
+                            </h1>
+                            <p className="text-blue-300">
+                              {company.companyType.companyTypeName}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </TabPanel>
