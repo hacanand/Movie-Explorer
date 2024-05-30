@@ -4,6 +4,7 @@ import Contextpage from '../Contextpage';
 import { HiChevronLeft } from "react-icons/hi";
 import noimage from '../assets/images/movies.jpg'
 import { FaPlay } from "react-icons/fa";
+import axios from 'axios';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import slugify from 'react-slugify';
@@ -20,39 +21,44 @@ export const Detail = () => {
   const [moviegenres, setMoviegenres] = useState([]);
   const [video, setVideo] = useState([]);
 
-  const fetchMovie = async () => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${APIKEY}&language=en-US`
-    );
-    const moviedetail = await data.json();
-    setMoviedet(moviedetail);
-    // console.log(moviedetail);
-    setMoviegenres(moviedetail.genres);
+  const fetchMovieData = async () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://api4.thetvdb.com/v4/movies/${id}/extended?short=false
+`,
+      headers: {
+        Authorization: APIKEY,
+      },
+    };
+
+    const res=await axios.request(config)
+     console.log(res.data.data)
+    setMoviedet(res.data.data);
+  
     setLoader(false);
   };
 
-  const fetchCast = async () => {
-    const castdata = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIKEY}&language`
-    );
-    const castdetail = await castdata.json();
-    setCastdata(castdetail.cast);
-    setLoader(false);
-  }
+  // const fetchCast = async () => {
+  //   const castdata = await fetch(
+  //     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIKEY}&language`
+  //   );
+  //   const castdetail = await castdata.json();
+  //   setCastdata(castdetail.cast);
+  //   setLoader(false);
+  // }
 
-  const fetchVideo = async () => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APIKEY}&language=en-US`
-    );
-    const videodata = await data.json();
-    setVideo(videodata.results);
-    // console.log(videodata.results);
-  }
+  // const fetchVideo = async () => {
+  //   const data = await fetch(
+  //     `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APIKEY}&language=en-US`
+  //   );
+  //   const videodata = await data.json();
+  //   setVideo(videodata.results);
+  //   // console.log(videodata.results);
+  // }
 
   useEffect(() => {
-    fetchMovie();
-    fetchCast();
-    fetchVideo();
+    fetchMovieData();
   }, []);
 
   
@@ -68,8 +74,8 @@ export const Detail = () => {
             {/* poster */}
             <div className='relative h-auto md:h-[82vh] flex justify-center'>
               <div className='h-full w-full shadowbackdrop absolute'></div>
-              <h1 className='text-white absolute bottom-0 p-10 text-2xl md:text-6xl font-bold text-center'>{moviedet.title}</h1>
-              {moviedet.backdrop_path === null ? <img src={noimage} className='h-full w-full' /> : <img src={"https://image.tmdb.org/t/p/original/" + moviedet.backdrop_path} className='h-full w-full' />}
+              <h1 className='text-white absolute bottom-0 p-10 text-2xl md:text-6xl font-bold text-center'>{moviedet.name}</h1>
+              {moviedet.name === null ? <img src={noimage} className='h-full w-full' /> : <img src={moviedet.image} className=" object-cover w-full"/>}
             </div>
 
             {/* overview */}
@@ -129,7 +135,7 @@ export const Detail = () => {
               </Link>
             </div>
           </>
-      }
+       }
     </>
   )
 }

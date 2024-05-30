@@ -23,45 +23,45 @@ function Trending() {
 
 
     return (
-        <>
-            <Helmet>
-                <title>BlueBird Movies | Trending</title>
-            </Helmet>
+      <>
+        <Helmet>
+          <title> Movie Explorer | Trending</title>
+        </Helmet>
 
-            <div className='w-full bg-[#10141e] md:p-10 mb-20 md:mb-0'>
-                <Header />
-                <motion.div
-                    layout
-                    className="flex flex-wrap relative justify-evenly md:justify-around">
-                    <AnimatePresence>
-                        {
-                            loader ? <span className="loader m-10"></span> :
-                                <>
-                                    <InfiniteScroll
-                                        className="w-full md:p-2 flex flex-wrap relative justify-evenly md:justify-around"
-                                        dataLength={trending.length} //This is important field to render the next data
-                                        next={() => setPage(page + 1)}
-                                        hasMore={page < totalPage}
-                                        loader={<span className="loader m-10"></span>}
-                                        scrollThreshol={0.9}
-                                        style={{ overflow: 'hidden' }}
-                                    >
-
-                                        {trending?.map((tred) => (
-                                            <Moviecard key={tred.id} movie={tred} />
-                                        ))}
-
-                                    </InfiniteScroll>
-
-                                </>
-                        }
-                    </AnimatePresence>
-                </motion.div>
-                {/* <Pagebtn /> */}
-
-            </div>
-        </>
-    )
+        <div className="w-full bg-[#10141e] md:p-10 mb-20 md:mb-0">
+          <Header />
+          <motion.div
+            layout
+            className="flex flex-wrap relative justify-evenly md:justify-around"
+          >
+            <AnimatePresence>
+              {loader ? (
+                <div className="h-screen w-full flex justify-center items-center">
+                  <span className="loader m-10"></span>
+                </div>
+              ) : (
+                <>
+                  <InfiniteScroll
+                    className="w-full md:p-2 flex flex-wrap relative justify-evenly md:justify-around"
+                    dataLength={trending.length} //This is important field to render the next data
+                    next={() => setPage(page + 1)}
+                    hasMore={page < totalPage}
+                    loader={<span className="loader m-10"></span>}
+                    scrollThreshol={0.9}
+                    style={{ overflow: "hidden" }}
+                  >
+                    {trending?.map((tred) => (
+                      <Moviecard key={tred.id} movie={tred} />
+                    ))}
+                  </InfiniteScroll>
+                </>
+              )}
+            </AnimatePresence>
+          </motion.div>
+          {/* <Pagebtn /> */}
+        </div>
+      </>
+    );
 }
 
 export default Trending

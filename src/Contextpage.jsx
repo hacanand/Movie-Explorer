@@ -48,7 +48,7 @@ export function MovieProvider({ children }) {
     const res=await axios.request(config)
 
   //  console.log(res)
-    setMovies(res.data.data); // Concat new movies with previous movies, on genre change movies are reset to [] so that only movies of new genre will appear, check out useEffect on top for more information.
+    setMovies(res.data.data);  
     setTotalPage(res.data.page_size);
     setLoader(false);
     setHeader("Genres");
@@ -95,7 +95,7 @@ let config = {
 
     const res = await axios.request(config)
     setTrending(res.data.data);
-    console.log(res.data.data)
+    // console.log(res.data.data)
     setTotalPage(res.data.page_size);
     setLoader(false);
     setHeader("Trending Movies");

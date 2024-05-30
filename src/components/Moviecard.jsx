@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
  
- 
+import { Link } from 'react-router-dom';
 import Contextpage from '../Contextpage';
 
 function Moviecard({ movie }) {
@@ -51,8 +51,8 @@ function Moviecard({ movie }) {
           {isBookmarked ? <AiFillStar /> : <AiOutlineStar />}
         </button> */}
 
-        <div className="absolute bottom-0 w-full flex justify-between items-end p-3 z-20">
-          <h1 className="text-white text-xl font-semibold  break-normal break-words">
+        <div className="absolute bottom-0 w-full flex backdrop-blur-sm  justify-between items-end p-3 pt-0 z-20">
+          <h1 className="bg-gradient-to-r from-pink-300  to-indigo-600 inline-block text-transparent bg-clip-text   text-xl font-bold  break-normal break-words">
             {movie.title || movie.name}
           </h1>
 
@@ -71,10 +71,10 @@ function Moviecard({ movie }) {
           )} */}
         </div>
 
-        {/* <Link
+        <Link
           to={`/moviedetail/${movie.id}`}
           className="h-full w-full shadow absolute z-10"
-        ></Link> */}
+        ></Link>
 
         <div>
           {movie.image === null ? (
@@ -82,9 +82,13 @@ function Moviecard({ movie }) {
           ) : (
             <LazyLoadImage
               effect="blur"
-                            className="img object-cover"
-                           src= {movie.image === undefined  ? movie.image_url: "https://thetvdb.com" + movie.image}
-            //   src={"https://thetvdb.com" + movie.image } 
+              className="img object-cover"
+              src={
+                movie.image === undefined
+                  ? movie.image_url
+                  : "https://thetvdb.com" + movie.image
+              }
+              //   src={"https://thetvdb.com" + movie.image }
             />
           )}
         </div>
