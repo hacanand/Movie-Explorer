@@ -129,7 +129,7 @@ const [loader, setLoader] = useState(true);
                           name Translations
                         </td>
                         <td className="text-right flex justify-end py-4  gap-2  flex-wrap">
-                          {moviedet?.nameTranslations?.map((name,index) => (
+                          {moviedet?.nameTranslations?.map((name, index) => (
                             <p key={index}>{name}</p>
                           ))}
                         </td>
@@ -277,17 +277,28 @@ const [loader, setLoader] = useState(true);
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
-                    {Object.keys(moviedet?.companies).map((company) => (
-                      <div
-                        key={company}
-                        className="flex flex-col items-center gap-2"
-                      >
-                        <div className="bg-gray-800 p-2 rounded-xl">
-                          <h1 className="text-white font-bold">{company.id}</h1>
-                          <p className="text-blue-300">{company}</p>
-                        </div>
-                      </div>
-                    ))}
+                    {Object.values(moviedet?.companies)
+                      .flat()
+                      .map(
+                        (company) => (
+                          // console.log(company.companyType),
+                          (
+                            <div
+                              key={company.id}
+                              className="flex flex-col items-center gap-2"
+                            >
+                              <div className="bg-gray-800 p-2 rounded-xl">
+                                <h1 className="text-white font-bold">
+                                  {company.name}
+                                </h1>
+                                <p className="text-blue-300">
+                                  {company.companyType.companyTypeName}
+                                </p>
+                              </div>
+                            </div>
+                          )
+                        )
+                      )}
                   </div>
                 </div>
               </TabPanel>
