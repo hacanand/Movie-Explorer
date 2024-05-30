@@ -51,7 +51,7 @@ function Moviecard({ movie }) {
           {isBookmarked ? <AiFillStar /> : <AiOutlineStar />}
         </button> */}
 
-        <div className="absolute bottom-0 w-full flex backdrop-blur-sm  justify-between items-end p-3 pt-0 z-20">
+        <div className="absolute bottom-0 w-full flex backdrop-blur-sm  justify-between items-end p-3 py-1 z-20">
           <h1 className="bg-gradient-to-r from-pink-300  to-indigo-600 inline-block text-transparent bg-clip-text   text-xl font-bold  break-normal break-words">
             {movie.title || movie.name}
           </h1>
