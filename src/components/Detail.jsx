@@ -2,14 +2,12 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Contextpage from '../Contextpage';
 import { HiChevronLeft } from "react-icons/hi";
-import noimage from '../assets/images/movies.jpg'
-import { FaPlay } from "react-icons/fa";
+import noImage from '../assets/images/no-image.jpg'
 import axios from 'axios';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import slugify from 'react-slugify';
 
 export const Detail = () => {
   const APIKEY = import.meta.env.VITE_API_KEY;
@@ -40,7 +38,7 @@ export const Detail = () => {
       return
     }
     const res=await axios.request(config)
-    console.log(res.data.data)
+   // console.log(res.data.data)
     localStorage.setItem('moviedet', JSON.stringify(res.data.data));
     setMoviedet(res.data.data);
 
@@ -90,7 +88,7 @@ export const Detail = () => {
             {/* <img src={noimage} alt="" className="h-full w-full rounded" /> */}
             <div className="w-1/3 h-fit">
               {moviedet.name === null ? (
-                <img src={noimage} className="h-full  w-full rounded" />
+                <img src={noImage} className="h-full  w-full rounded" />
               ) : (
                 <img
                   src={moviedet.image}
@@ -107,20 +105,18 @@ export const Detail = () => {
                 praesentium soluta, odit eos.
               </h2>
               <div className="flex flex-wrap ">
-                {moviedet.genres.map((tag) => (
-                  <>
-                    <div
-                      key={tag.id}
-                      className="text-white font-semibold bg-gray-800 rounded-full px-4 py-1 m-2"
-                    >
-                      {tag.name}
-                    </div>
-                  </>
+                {moviedet?.genres?.map((tag) => (
+                  <div
+                    key={tag.id}
+                    className="text-white font-semibold bg-gray-800 rounded-full px-4 py-1 m-2"
+                  >
+                    {tag.name}
+                  </div>
                 ))}
               </div>
               <div className="text-blue-100 font-semibold my-3 flex ">
                 <h2 className="bg-blue-600/30 border-2 border-blue-700 py-2 px-3 rounded-full">
-                  Release Date : {moviedet.first_release.date}
+                  Release Date : {moviedet?.first_release?.date}
                 </h2>
               </div>
             </div>
@@ -131,33 +127,177 @@ export const Detail = () => {
                 <Tab>Overview</Tab>
                 <Tab>Cast</Tab>
                 <Tab>Trailer</Tab>
+                <Tab>Artworks</Tab>
+                <Tab>Companies</Tab>
               </TabList>
               <TabPanel>
-                  <div className="text-white w-full  pt-5 px-3   font-Roboto text-[18px]">
-                    {/* create a table that show data in two column  in full width with right align data in second column */}
-                    <table className="w-full">
-                      <tr>
-                        <td className="text-left">Original Title</td>
-                        <td className='text-right'>moviedet.original_title</td>
-                      </tr>
-                      <tr>
-                        <td className="text-right">Overview</td>
-                        <td>moviedet.overview</td>
-                      </tr>
-                      <tr>
-                        <td className="text-right">Release Date</td>
-                        <td>moviedet.first_release.date</td>
-                      </tr>
-                      <tr>
-                        <td className="text-right">Runtime</td>
-                        <td>moviedet.runtime</td>
-                      </tr>
-                      <tr>
-                        <td className="text-right">Rating</td>
-                        <td>moviedet.rating</td>
-                      </tr>
-                      </table>
-                    
+                <div className="text-white w-full pt-5 px-3 font-Roboto  ">
+                  {/* create a table that show data in two column  in full width with right align data in second column */}
+                  <table className="w-full text-blue-300">
+                    <tr>
+                      <td className="text-left capitalize">Original Title</td>
+                      <td className="text-right">{moviedet.name}</td>
+                    </tr>
+
+                    <tr>
+                      <td className="text-left capitalize py-4 ">
+                        name Translations
+                      </td>
+                      <td className="text-right flex justify-end py-4  gap-2  flex-wrap">
+                        {moviedet.nameTranslations.map((name) => (
+                          <p>{name}</p>
+                        ))}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">runtime</td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.runtime}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">Budget</td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.budget}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">box Office</td>
+                      <td className="text-right capitalize py-4 ">
+                        <div> {moviedet.boxOffice}</div>
+                        <div>
+                          US Box Office : {moviedet.boxOfficeUS || "..."}
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">
+                        original Country
+                      </td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.originalCountry}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">
+                        original Language
+                      </td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.originalLanguage}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">
+                        subtitle Languages
+                      </td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.subtitleLanguages || "...."}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">studios</td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.studios.map((studio) => (
+                          <>
+                            <p>{studio.name}</p>
+                            <p>
+                              Parent Studio :{studio.parentStudio || " ..."}
+                            </p>
+                          </>
+                        ))}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">awards</td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.awards || "...."}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="text-left capitalize py-4 ">
+                        content Ratings
+                      </td>
+                      <td className="text-right capitalize py-4 ">
+                        {moviedet.contentRatings || "...."}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <div className="text-white w-full pt-5 px-3 font-Roboto  ">
+                  <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
+                    {moviedet?.characters?.map((cast) => (
+                      <>
+                        <div className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1">
+                          <LazyLoadImage
+                            effect="blur"
+                            src={cast.image === "" ? noImage : cast.image}
+                            className="w-full h-full rounded-xl"
+                          />
+                          <p className="text-white">{cast.name || "..."}</p>
+                          <p className="text-blue-300">
+                            ({cast.peopleType || "..."})
+                          </p>
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <div className="text-white w-full pt-5 px-3 font-Roboto  ">
+                  <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
+                    {loader ? (
+                      <span className="loader m-10"></span>
+                    ) : (
+                      moviedet?.trailers?.map((trail, index) => (
+                        <iframe
+                          key={trail.id}
+                          width="1280"
+                          height="720"
+                          src={`https://www.youtube.com/embed/${
+                            trail.url.split("=")[1]
+                          }`}
+                          title={trail.name}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <div className="text-white w-full pt-5 px-3 font-Roboto  ">
+                  <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
+                    {moviedet?.artworks?.map((artwork) => (
+                      <img
+                        key={artwork.id}
+                        width={artwork.width}
+                        height={artwork.height}
+                        src={artwork.thumbnail || noImage}
+                        alt={artwork.name}
+                        className="w-96 h-96  rounded-xl m-2"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <div className="text-white w-full pt-5 px-3 font-Roboto  ">
+                  <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
+                    {Object.keys(moviedet?.companies)
+                      .map((company) => (
+                        <div className="flex flex-col items-center gap-2">
+                          <div className="bg-gray-800 p-2 rounded-xl">
+                            <h1 className="text-white font-bold">{ company.id}</h1>
+                            <p className="text-blue-300">{company}</p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </TabPanel>
             </Tabs>
