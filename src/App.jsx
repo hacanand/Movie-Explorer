@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Detail } from './components/Detail';
-import Login from './auth/Login';
+// import Login from './auth/Login';
 import Navbar from './components/Navbar'
 import Container from './pages/Container'
 import Trending from './pages/Trending';
