@@ -80,7 +80,9 @@ const [loader, setLoader] = useState(true);
               )}
             </div>
             <div className="flex flex-col px-8 gap-2 w-2/3">
-              <h1 className="text-white text-2xl font-bold">{moviedet?.name}</h1>
+              <h1 className="text-white text-2xl font-bold">
+                {moviedet?.name}
+              </h1>
               <h2 className="text-white cli">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Quaerat, delectus vel! Nisi amet ab doloribus ratione. Quasi
@@ -115,95 +117,98 @@ const [loader, setLoader] = useState(true);
               </TabList>
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
-                  {/* create a table that show data in two column  in full width with right align data in second column */}
-                    <table className="w-full text-blue-300">
-                    <tr>
-                      <td className="text-left capitalize">Original Title</td>
-                      <td className="text-right">{moviedet?.name}</td>
-                    </tr>
+                  <table className="w-full text-blue-300">
+                    <tbody>
+                      <tr>
+                        <td className="text-left capitalize">Original Title</td>
+                        <td className="text-right">{moviedet?.name}</td>
+                      </tr>
 
-                    <tr>
-                      <td className="text-left capitalize py-4 ">
-                        name Translations
-                      </td>
-                      <td className="text-right flex justify-end py-4  gap-2  flex-wrap">
-                        {moviedet?.nameTranslations?.map((name) => (
-                          <p key={name}>{name}</p>
-                        ))}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">runtime</td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.runtime}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">Budget</td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.budget}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">box Office</td>
-                      <td className="text-right capitalize py-4 ">
-                        <div> {moviedet?.boxOffice}</div>
-                        <div>
-                          US Box Office : {moviedet?.boxOfficeUS || "..."}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">
-                        original Country
-                      </td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.originalCountry}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">
-                        original Language
-                      </td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.originalLanguage}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">
-                        subtitle Languages
-                      </td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.subtitleLanguages || "...."}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">studios</td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.studios.map((studio) => (
-                          <>
-                            <p>{studio.name}</p>
-                            <p>
-                              Parent Studio :{studio?.parentStudio || " ..."}
-                            </p>
-                          </>
-                        ))}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">awards</td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.awards || "...."}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left capitalize py-4 ">
-                        content Ratings
-                      </td>
-                      <td className="text-right capitalize py-4 ">
-                        {moviedet?.contentRatings || "...."}
-                      </td>
-                    </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">
+                          name Translations
+                        </td>
+                        <td className="text-right flex justify-end py-4  gap-2  flex-wrap">
+                          {moviedet?.nameTranslations?.map((name,index) => (
+                            <p key={index}>{name}</p>
+                          ))}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">runtime</td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.runtime}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">Budget</td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.budget}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">
+                          box Office
+                        </td>
+                        <td className="text-right capitalize py-4 ">
+                          <div> {moviedet?.boxOffice}</div>
+                          <div>
+                            US Box Office : {moviedet?.boxOfficeUS || "..."}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">
+                          original Country
+                        </td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.originalCountry}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">
+                          original Language
+                        </td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.originalLanguage}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">
+                          subtitle Languages
+                        </td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.subtitleLanguages || "...."}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">studios</td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.studios.map((studio) => (
+                            <>
+                              <p>{studio.id}</p>
+                              <p>
+                                Parent Studio :{studio?.parentStudio || " ..."}
+                              </p>
+                            </>
+                          ))}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">awards</td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.awards || "...."}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="text-left capitalize py-4 ">
+                          content Ratings
+                        </td>
+                        <td className="text-right capitalize py-4 ">
+                          {moviedet?.contentRatings || "...."}
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </TabPanel>
@@ -211,19 +216,20 @@ const [loader, setLoader] = useState(true);
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                     {moviedet?.characters?.map((cast) => (
-                      
-                        <div key={cast.id} className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1">
-                          <LazyLoadImage
-                            effect="blur"
-                            src={cast.image === "" ? noImage : cast.image}
-                            className="w-full h-full rounded-xl"
-                          />
-                          <p className="text-white">{cast.name || "..."}</p>
-                          <p className="text-blue-300">
-                            ({cast.peopleType || "..."})
-                          </p>
-                        </div>
-                      
+                      <div
+                        key={cast.id}
+                        className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
+                      >
+                        <LazyLoadImage
+                          effect="blur"
+                          src={cast.image === "" ? noImage : cast.image}
+                          className="w-full h-full rounded-xl"
+                        />
+                        <p className="text-white">{cast.name || "..."}</p>
+                        <p className="text-blue-300">
+                          ({cast.peopleType || "..."})
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -271,21 +277,22 @@ const [loader, setLoader] = useState(true);
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
-                    {Object.keys(moviedet?.companies)
-                      .map((company) => (
-                        <div key={company} className="flex flex-col items-center gap-2">
-                          <div className="bg-gray-800 p-2 rounded-xl">
-                            <h1 className="text-white font-bold">{ company.id}</h1>
-                            <p className="text-blue-300">{company}</p>
-                          </div>
+                    {Object.keys(moviedet?.companies).map((company) => (
+                      <div
+                        key={company}
+                        className="flex flex-col items-center gap-2"
+                      >
+                        <div className="bg-gray-800 p-2 rounded-xl">
+                          <h1 className="text-white font-bold">{company.id}</h1>
+                          <p className="text-blue-300">{company}</p>
                         </div>
-                      ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </TabPanel>
             </Tabs>
           </div>
-           
         </>
       )}
     </>
