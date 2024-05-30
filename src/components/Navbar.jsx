@@ -5,7 +5,7 @@ import Contextpage from '../Contextpage';
 import { motion } from "framer-motion";
 import { HiMenuAlt1, HiX } from "react-icons/hi";
 import User from '../assets/images/User.jpg';
-import { auth } from '../../firebase';
+// import { auth } from '../../firebase';
 import { toast } from "react-toastify";
 
 function Navbar() {

@@ -133,10 +133,10 @@ export const Detail = () => {
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   {/* create a table that show data in two column  in full width with right align data in second column */}
-                  <table className="w-full text-blue-300">
+                    <table className="w-full text-blue-300">
                     <tr>
                       <td className="text-left capitalize">Original Title</td>
-                      <td className="text-right">{moviedet.name}</td>
+                      <td className="text-right">{moviedet?.name}</td>
                     </tr>
 
                     <tr>
@@ -144,29 +144,29 @@ export const Detail = () => {
                         name Translations
                       </td>
                       <td className="text-right flex justify-end py-4  gap-2  flex-wrap">
-                        {moviedet.nameTranslations.map((name) => (
-                          <p>{name}</p>
+                        {moviedet?.nameTranslations?.map((name) => (
+                          <p key={name}>{name}</p>
                         ))}
                       </td>
                     </tr>
                     <tr>
                       <td className="text-left capitalize py-4 ">runtime</td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.runtime}
+                        {moviedet?.runtime}
                       </td>
                     </tr>
                     <tr>
                       <td className="text-left capitalize py-4 ">Budget</td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.budget}
+                        {moviedet?.budget}
                       </td>
                     </tr>
                     <tr>
                       <td className="text-left capitalize py-4 ">box Office</td>
                       <td className="text-right capitalize py-4 ">
-                        <div> {moviedet.boxOffice}</div>
+                        <div> {moviedet?.boxOffice}</div>
                         <div>
-                          US Box Office : {moviedet.boxOfficeUS || "..."}
+                          US Box Office : {moviedet?.boxOfficeUS || "..."}
                         </div>
                       </td>
                     </tr>
@@ -175,7 +175,7 @@ export const Detail = () => {
                         original Country
                       </td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.originalCountry}
+                        {moviedet?.originalCountry}
                       </td>
                     </tr>
                     <tr>
@@ -183,7 +183,7 @@ export const Detail = () => {
                         original Language
                       </td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.originalLanguage}
+                        {moviedet?.originalLanguage}
                       </td>
                     </tr>
                     <tr>
@@ -191,17 +191,17 @@ export const Detail = () => {
                         subtitle Languages
                       </td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.subtitleLanguages || "...."}
+                        {moviedet?.subtitleLanguages || "...."}
                       </td>
                     </tr>
                     <tr>
                       <td className="text-left capitalize py-4 ">studios</td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.studios.map((studio) => (
+                        {moviedet?.studios.map((studio) => (
                           <>
                             <p>{studio.name}</p>
                             <p>
-                              Parent Studio :{studio.parentStudio || " ..."}
+                              Parent Studio :{studio?.parentStudio || " ..."}
                             </p>
                           </>
                         ))}
@@ -210,7 +210,7 @@ export const Detail = () => {
                     <tr>
                       <td className="text-left capitalize py-4 ">awards</td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.awards || "...."}
+                        {moviedet?.awards || "...."}
                       </td>
                     </tr>
                     <tr>
@@ -218,7 +218,7 @@ export const Detail = () => {
                         content Ratings
                       </td>
                       <td className="text-right capitalize py-4 ">
-                        {moviedet.contentRatings || "...."}
+                        {moviedet?.contentRatings || "...."}
                       </td>
                     </tr>
                   </table>
@@ -228,8 +228,8 @@ export const Detail = () => {
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                     {moviedet?.characters?.map((cast) => (
-                      <>
-                        <div className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1">
+                      
+                        <div key={cast.id} className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1">
                           <LazyLoadImage
                             effect="blur"
                             src={cast.image === "" ? noImage : cast.image}
@@ -240,7 +240,7 @@ export const Detail = () => {
                             ({cast.peopleType || "..."})
                           </p>
                         </div>
-                      </>
+                      
                     ))}
                   </div>
                 </div>
@@ -290,7 +290,7 @@ export const Detail = () => {
                   <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
                     {Object.keys(moviedet?.companies)
                       .map((company) => (
-                        <div className="flex flex-col items-center gap-2">
+                        <div key={company} className="flex flex-col items-center gap-2">
                           <div className="bg-gray-800 p-2 rounded-xl">
                             <h1 className="text-white font-bold">{ company.id}</h1>
                             <p className="text-blue-300">{company}</p>
