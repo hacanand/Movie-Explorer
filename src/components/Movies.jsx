@@ -4,7 +4,6 @@ import Moviecard from './Moviecard';
 import { motion, AnimatePresence } from 'framer-motion';
 import Genre from './Genre';
 import Header from './Header';
-// import { Pagebtn } from './Pagebtn';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 

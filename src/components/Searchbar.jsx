@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet';
-import Contextpage from '../Contextpage';
+ 
 import { useNavigate } from 'react-router-dom';
 import slugify from 'react-slugify';
 
 
 function Searchbar() {
 
-  const { filteredGenre, fetchSearch, setBackGenre, setGenres } = useContext(Contextpage);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
 
@@ -22,13 +21,13 @@ function Searchbar() {
       // Set a new timeout
       const newTimeout = setTimeout(() => {
           onKeyUp(value);
-      }, 500); // Adjust the timeout duration as needed (in milliseconds)
+      }, 500);  
 
       setTypingTimeout(newTimeout);
   };
 
   const onKeyUp = (query) => {
-    // console.log(query)
+    
     if (query !== "") {
         query = query.trim();
 

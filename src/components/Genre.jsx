@@ -3,24 +3,12 @@ import Contextpage from '../Contextpage';
 import {Helmet} from "react-helmet";
 
 function Genre() {
-    const { fetchGenre, activegenre, setActiveGenre, genres, setMovies, page, setPage, filteredGenre } = useContext(Contextpage);    
+    const { fetchGenre, activegenre, setActiveGenre, genres} = useContext(Contextpage);    
 
 
     useEffect(() => {
         fetchGenre();  // Fetching Genres on Initial Render.
     }, [])
-
-
-    // const filterFunc = () => {
-    //     if (activegenre === 0) {
-    //         setFiltered(movies)
-    //     } else {
-    //         const filteredgenre = movies.filter((movie) =>
-    //           movie.genre_ids.includes(activegenre)
-    //         );
-    //         setFiltered(filteredgenre);
-    //     }
-    // }
 
     return (
         <>

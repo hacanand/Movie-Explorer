@@ -1,40 +1,26 @@
 import { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-//=== google firebase import start ===
-// import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-// import { auth } from '../firebase';
-// import { useAuthState } from "react-firebase-hooks/auth"
 import axios from "axios";
-// ===================================
-import { toast } from 'react-toastify';
-
 const Contextpage = createContext();
 
 export function MovieProvider({ children }) {
-
   const [header, setHeader] = useState("Trending");
-  const [totalPage, setTotalPage] = useState(null)
+  const [totalPage, setTotalPage] = useState(null);
   const [movies, setMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [trending, setTrending] = useState([]);
-  const [upcoming, setUpcoming] = useState([]);
   const [page, setPage] = useState(1);
   const [activegenre, setActiveGenre] = useState(28);
-  const [genres, setGenres] = useState([])
+  const [genres, setGenres] = useState([]);
   const [loader, setLoader] = useState(true);
   const [backgenre, setBackGenre] = useState(false);
-  // const [user, setUser] = useAuthState(auth)//=======> firebase custom hooks state
-  const navigate = useNavigate();// =====> navigate page
 
   const APIKEY = import.meta.env.VITE_API_KEY;
 
-
   useEffect(() => {
     if (page < 1) {
-      setPage(1)  // Increment page to 1 if it is less than 1.
+      setPage(1); // Increment page to 1 if it is less than 1.
     }
   }, [page]);
-
 
   const filteredGenre = async () => {
     let config = {
@@ -45,10 +31,10 @@ export function MovieProvider({ children }) {
         Authorization: APIKEY,
       },
     };
-    const res=await axios.request(config)
+    const res = await axios.request(config);
 
-  //  console.log(res)
-    setMovies(res.data.data);  
+    //  console.log(res)
+    setMovies(res.data.data);
     setTotalPage(res.data.page_size);
     setLoader(false);
     setHeader("Genres");
@@ -63,76 +49,42 @@ export function MovieProvider({ children }) {
         Authorization: APIKEY,
       },
     };
-    const res=await axios.request(config)
-    console.log(res.data)
-    setSearchedMovies(res.data.data); 
+    const res = await axios.request(config);
+    //console.log(res.data)
+    setSearchedMovies(res.data.data);
     setLoader(false);
     setHeader(`Results for "${query}"`);
-  }
+  };
 
   const fetchGenre = async () => {
-    
-let config = {
-  method: "get",
-  maxBodyLength: Infinity,
-  url: "https://api4.thetvdb.com/v4/genres",
-  headers: {
-    Authorization: APIKEY,
-  },
-};
-    const res = await axios.request(config)
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "https://api4.thetvdb.com/v4/genres",
+      headers: {
+        Authorization: APIKEY,
+      },
+    };
+    const res = await axios.request(config);
     setGenres(res.data.data);
-  }
-  const fetchTrending = async () => {    
-let config = {
-  method: "get",
-  maxBodyLength: Infinity,
-  url: `https://api4.thetvdb.com/v4/movies?page=${page}`,
-  headers: {
-    Authorization: APIKEY,
-  },
-};
+  };
+  const fetchTrending = async () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://api4.thetvdb.com/v4/movies?page=${page}`,
+      headers: {
+        Authorization: APIKEY,
+      },
+    };
 
-    const res = await axios.request(config)
+    const res = await axios.request(config);
     setTrending(res.data.data);
     // console.log(res.data.data)
     setTotalPage(res.data.page_size);
     setLoader(false);
     setHeader("Trending Movies");
-  }
-
-  const fetchUpcoming = async () => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${APIKEY}&with_origin_country=IN&language=en-US&page=${page}`
-    );
-    const upc = await data.json();
-    setUpcoming(upcoming.concat(upc.results));
-    setTotalPage(upc.total_pages);
-    setLoader(false);
-    setHeader("Upcoming Movies");
-  }
-
-  // creat local storage
-  const GetFavorite = () => {
-    setLoader(false);
-    setHeader("Favorite Movies");
-  }
-
-
-  //<========= firebase Google Authentication ========>
-  // const googleProvider = new GoogleAuthProvider();// =====> google auth provide
-
-  // const GoogleLogin = async () => {
-  //   try {
-  //     const result = await signInWithPopup(auth, googleProvider);
-  //     navigate("/")
-  //     toast.success("Login successfully");
-  //   } catch (err) {
-  //     console.log(err)
-  //     navigate("/")
-  //   }
-  // }
-  // <==========================================================>
+  };
 
   return (
     <Contextpage.Provider
@@ -156,9 +108,6 @@ let config = {
         setLoader,
         fetchTrending,
         trending,
-        fetchUpcoming,
-        upcoming,
-        GetFavorite,
         totalPage,
         searchedMovies,
       }}
@@ -166,7 +115,6 @@ let config = {
       {children}
     </Contextpage.Provider>
   );
-
 }
 
-export default Contextpage
+export default Contextpage;
