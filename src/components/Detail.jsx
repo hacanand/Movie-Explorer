@@ -100,7 +100,7 @@ const [loader, setLoader] = useState(true);
               </div>
               <div className="text-blue-100 font-semibold my-3 flex ">
                 <h2 className="bg-blue-600/30 border-2 border-blue-700 py-2 px-3 rounded-full">
-                  Release Date : {moviedet?.first_release?.date}
+                  Release Date : {moviedet?.first_release?.date || "...."}
                 </h2>
               </div>
             </div>
@@ -115,8 +115,8 @@ const [loader, setLoader] = useState(true);
                 <Tab>Companies</Tab>
               </TabList>
               <TabPanel>
-                <div className="text-white w-full pt-5 px-3 font-Roboto  ">
-                  <table className="w-full text-blue-300">
+                <div className="w-full pt-5 px-5 font-Roboto  ">
+                  <table className="w-full text-blue-300   pt-5 px-3 font-Roboto  ">
                     <tbody>
                       <tr>
                         <td className="text-left capitalize">Original Title</td>
@@ -185,7 +185,9 @@ const [loader, setLoader] = useState(true);
                           {moviedet?.studios?.map((studio) => (
                             <div key={studio.id}>
                               <p>{studio?.name}</p>
-                              <p>Parent Studio :{studio?.parentStudio || " ..."}</p>
+                              <p>
+                                Parent Studio :{studio?.parentStudio || " ..."}
+                              </p>
                             </div>
                           ))}
                         </td>
@@ -201,7 +203,12 @@ const [loader, setLoader] = useState(true);
                           content Ratings
                         </td>
                         <td className="text-right capitalize py-4 ">
-                          {moviedet?.contentRatings || "...."}
+                          {moviedet?.contentRatings?.map((rating) => (
+                            <div key={rating.id}>
+                              <p>{rating?.name || "...."}</p>
+                              <p>{rating?.description}</p>
+                            </div>
+                          ))}
                         </td>
                       </tr>
                     </tbody>
@@ -212,7 +219,10 @@ const [loader, setLoader] = useState(true);
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                     {moviedet?.characters?.map((cast) => (
-                      <div key={cast.id} className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1" >
+                      <div
+                        key={cast.id}
+                        className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
+                      >
                         <LazyLoadImage
                           effect="blur"
                           src={cast.image === "" ? noImage : cast.image}
