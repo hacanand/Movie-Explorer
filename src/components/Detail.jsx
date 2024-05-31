@@ -37,7 +37,7 @@ const [loader, setLoader] = useState(true);
     //   return
     // }
     const res=await axios.request(config)
-   // console.log(res.data.data)
+   console.log(res.data.data)
     // localStorage.setItem('moviedet', JSON.stringify(res.data.data));
     setMoviedet(res.data.data);
     setLoader(false);
@@ -185,9 +185,7 @@ const [loader, setLoader] = useState(true);
                           {moviedet?.studios?.map((studio) => (
                             <div key={studio.id}>
                               <p>{studio?.name}</p>
-                              <p>
-                                Parent Studio :{studio?.parentStudio || " ..."}
-                              </p>
+                              <p>Parent Studio :{studio?.parentStudio || " ..."}</p>
                             </div>
                           ))}
                         </td>
@@ -214,10 +212,7 @@ const [loader, setLoader] = useState(true);
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                     {moviedet?.characters?.map((cast) => (
-                      <div
-                        key={cast.id}
-                        className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
-                      >
+                      <div key={cast.id} className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1" >
                         <LazyLoadImage
                           effect="blur"
                           src={cast.image === "" ? noImage : cast.image}
@@ -288,7 +283,7 @@ const [loader, setLoader] = useState(true);
                               {company.name}
                             </h1>
                             <p className="text-blue-300">
-                              {company.companyType.companyTypeName}
+                              {company?.companyType.companyTypeName}
                             </p>
                           </div>
                         </div>
