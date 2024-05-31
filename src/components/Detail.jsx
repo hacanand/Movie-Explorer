@@ -7,7 +7,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
- 
 
 import { toast } from "react-toastify";
 
@@ -16,19 +15,16 @@ export const Detail = () => {
   const APIKEY = import.meta.env.VITE_API_KEY;
   const [loader, setLoader] = useState(true);
 
- 
   let { id } = useParams();
-  if ( typeof id === "string" && id.includes("movie-")===false) {
+  if (typeof id === "string" && id.includes("movie-") === false) {
     id = id;
-  }
-  else if (id.includes("movie-")){
+  } else if (id.includes("movie-")) {
     id = id.split("-")[1];
-  } 
-  else {
+  } else {
     navigate("/");
     toast.error("Invalid Movie ID");
   }
-   
+
   //console.log(typeof data)
 
   const [moviedet, setMoviedet] = useState([]);
@@ -42,7 +38,7 @@ export const Detail = () => {
         Authorization: APIKEY,
       },
     };
-
+    console.log(moviedet);
     const res = await axios.request(config);
 
     setMoviedet(res.data.data);
@@ -69,13 +65,12 @@ export const Detail = () => {
           </Link>
 
           <div className=" p-2 pt-10 h-full w-full flex max-md:flex-col">
-              <div className="md:w-1/3 w-full h-fit">
-                <LazyLoadImage
-                  effect="blur"
-                  src={moviedet?.image === null ? noImage : moviedet?.image}
-                  className="rounded object-contain h-full w-full"
-                />
-               
+            <div className="md:w-1/3 w-full h-fit">
+              <LazyLoadImage
+                effect="blur"
+                src={moviedet?.image === null ? noImage : moviedet?.image}
+                className="rounded object-contain h-full w-full"
+              />
             </div>
             <div className="flex flex-col px-8 gap-2 w-full md:w-2/3">
               <h1 className="text-white text-2xl font-bold">
@@ -210,8 +205,11 @@ export const Detail = () => {
                         <td className="text-right capitalize py-4 ">
                           {moviedet?.contentRatings?.map((rating) => (
                             <div key={rating.id}>
-                              <p>{rating?.name || "...."}</p>
-                              <p>{rating?.description}</p>
+                              <p cl>{rating?.name || "...."}</p>
+                              <p className="mb-2 text-blue-200">
+                                {rating?.description || "...."} (
+                                {rating.country})
+                              </p>
                             </div>
                           )) || "...."}
                         </td>
