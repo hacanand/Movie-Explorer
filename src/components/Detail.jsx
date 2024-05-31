@@ -69,11 +69,13 @@ export const Detail = () => {
           </Link>
 
           <div className=" p-2 pt-10 h-full w-full flex max-md:flex-col">
-            <div className="md:w-1/3 w-full h-fit">
-              <img
-                src={moviedet?.image === null ? noImage : moviedet?.image}
-                className="rounded object-contain h-full w-full"
-              />
+              <div className="md:w-1/3 w-full h-fit">
+                <LazyLoadImage
+                  effect="blur"
+                  src={moviedet?.image === null ? noImage : moviedet?.image}
+                  className="rounded object-contain h-full w-full"
+                />
+               
             </div>
             <div className="flex flex-col px-8 gap-2 w-full md:w-2/3">
               <h1 className="text-white text-2xl font-bold">
@@ -157,7 +159,7 @@ export const Detail = () => {
                           original Country
                         </td>
                         <td className="text-right capitalize py-4 ">
-                          {moviedet?.originalCountry}
+                          {moviedet?.originalCountry || "...."}
                         </td>
                       </tr>
                       <tr className=" border-neutral-700 border-b-2">
@@ -183,7 +185,7 @@ export const Detail = () => {
                             <div key={studio.id}>
                               <p>{studio?.name}</p>
                             </div>
-                          ))}
+                          )) || "...."}
                         </td>
                       </tr>
                       <tr className=" border-neutral-700 border-b-2">
@@ -211,7 +213,7 @@ export const Detail = () => {
                               <p>{rating?.name || "...."}</p>
                               <p>{rating?.description}</p>
                             </div>
-                          ))}
+                          )) || "...."}
                         </td>
                       </tr>
                     </tbody>
@@ -221,22 +223,35 @@ export const Detail = () => {
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="md:px-5 flex flex-row my-5 max-w-full overflow-x-hidden items-center justify-center flex-wrap gap-4  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
-                    {moviedet?.characters?.map((cast) => (
-                      <div
-                        key={cast.id}
-                        className="flex gap-1 min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
-                      >
-                        <LazyLoadImage
-                          effect="blur"
-                          src={cast.image === "" ? noImage : cast.image}
-                          className="w-full h-full rounded-xl"
-                        />
-                        <p className="text-white">{cast.name || "..."}</p>
-                        <p className="text-blue-300">
-                          ({cast.peopleType || "..."})
-                        </p>
+                    {moviedet?.characters?.map(
+                      (cast) => (
+                        console.log(cast),
+                        (
+                          <div
+                            key={cast.id}
+                            className="flex gap-1 min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
+                          >
+                            <LazyLoadImage
+                              effect="blur"
+                              src={
+                                cast.image === ""
+                                  ? cast.personImgURL || noImage
+                                  : cast.image
+                              }
+                              className="w-full h-full rounded-xl"
+                            />
+                            <p className="text-white">{cast.name || "..."}</p>
+                            <p className="text-blue-300">
+                              ({cast.peopleType || "..."})
+                            </p>
+                          </div>
+                        )
+                      )
+                    ) || (
+                      <div className="text-2xl text-red-400 font-bold">
+                        Not Available
                       </div>
-                    ))}
+                    )}
                   </div>
                 </div>
               </TabPanel>
@@ -259,7 +274,11 @@ export const Detail = () => {
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         ></iframe>
-                      ))
+                      )) || (
+                        <div className="text-2xl text-red-400 font-bold">
+                          Not Available
+                        </div>
+                      )
                     )}
                   </div>
                 </div>
@@ -268,15 +287,19 @@ export const Detail = () => {
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
                   <div className="flex justify-center items-center mb-10 gap-5 flex-wrap">
                     {moviedet?.artworks?.map((artwork) => (
-                      <img
-                        key={artwork.id}
+                      <LazyLoadImage
+                        effect="blur"
+                        alt={artwork?.name}
                         width={artwork.width}
                         height={artwork.height}
-                        src={artwork.thumbnail || noImage}
-                        alt={artwork.name}
-                        className="w-96 h-96  rounded-xl m-2"
+                        className="img object-cover w-96 h-96  rounded-xl m-2"
+                        src={artwork?.thumbnail || noImage}
                       />
-                    ))}
+                    )) || (
+                      <div className="text-2xl text-red-400 font-bold">
+                        Not Available
+                      </div>
+                    )}
                   </div>
                 </div>
               </TabPanel>
@@ -299,7 +322,11 @@ export const Detail = () => {
                             </p>
                           </div>
                         </div>
-                      ))}
+                      )) || (
+                      <div className="text-2xl text-red-400 font-bold">
+                        Not Available
+                      </div>
+                    )}
                   </div>
                 </div>
               </TabPanel>
