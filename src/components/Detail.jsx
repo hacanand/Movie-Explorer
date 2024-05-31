@@ -37,7 +37,7 @@ const [loader, setLoader] = useState(true);
     //   return
     // }
     const res=await axios.request(config)
-   console.log(res.data.data)
+  //  console.log(res.data.data)
     // localStorage.setItem('moviedet', JSON.stringify(res.data.data));
     setMoviedet(res.data.data);
     setLoader(false);
@@ -69,14 +69,12 @@ const [loader, setLoader] = useState(true);
           <div className=" p-2 pt-10 h-full w-full  flex  ">
             {/* <img src={noimage} alt="" className="h-full w-full rounded" /> */}
             <div className="w-1/3 h-fit">
-              {moviedet?.name === null ? (
-                <img src={noImage} className="h-full  w-full rounded" />
-              ) : (
+               
                 <img
-                  src={moviedet?.image}
+                  src={moviedet?.image === null ? noImage:moviedet?.image}
                   className="rounded object-contain h-full w-full"
                 />
-              )}
+               
             </div>
             <div className="flex flex-col px-8 gap-2 w-2/3">
               <h1 className="text-white text-2xl font-bold">
@@ -118,11 +116,11 @@ const [loader, setLoader] = useState(true);
                 <div className="w-full pt-5 px-5 font-Roboto  ">
                   <table className="w-full text-blue-300   pt-5 px-3 font-Roboto  ">
                     <tbody>
-                      <tr>
+                      <tr className=' border-neutral-700 border-y-2'>
                         <td className="text-left capitalize">Original Title</td>
                         <td className="text-right">{moviedet?.name}</td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">
                           name Translations
                         </td>
@@ -132,19 +130,19 @@ const [loader, setLoader] = useState(true);
                           ))}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">runtime</td>
                         <td className="text-right capitalize py-4 ">
                           {moviedet?.runtime}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">Budget</td>
                         <td className="text-right capitalize py-4 ">
                           {moviedet?.budget}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">
                           box Office
                         </td>
@@ -155,7 +153,7 @@ const [loader, setLoader] = useState(true);
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">
                           original Country
                         </td>
@@ -163,7 +161,7 @@ const [loader, setLoader] = useState(true);
                           {moviedet?.originalCountry}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">
                           original Language
                         </td>
@@ -171,7 +169,7 @@ const [loader, setLoader] = useState(true);
                           {moviedet?.originalLanguage}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">
                           subtitle Languages
                         </td>
@@ -179,7 +177,7 @@ const [loader, setLoader] = useState(true);
                           {moviedet?.subtitleLanguages || "...."}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">studios</td>
                         <td className="text-right capitalize py-4 ">
                           {moviedet?.studios?.map((studio) => (
@@ -192,13 +190,13 @@ const [loader, setLoader] = useState(true);
                           ))}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">awards</td>
                         <td className="text-right capitalize py-4 ">
                           {moviedet?.awards || "...."}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className=' border-neutral-700 border-b-2'>
                         <td className="text-left capitalize py-4 ">
                           content Ratings
                         </td>
@@ -217,11 +215,11 @@ const [loader, setLoader] = useState(true);
               </TabPanel>
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
-                  <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
+                  <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap gap-4  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                     {moviedet?.characters?.map((cast) => (
                       <div
                         key={cast.id}
-                        className="flex min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
+                        className="flex gap-1 min-w-[9rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1"
                       >
                         <LazyLoadImage
                           effect="blur"
