@@ -18,7 +18,7 @@ export const Detail = () => {
 
  
   let { id } = useParams();
-  if ( typeof id === "string" && id.includes("movie-")==false) {
+  if ( typeof id === "string" && id.includes("movie-")===false) {
     id = id;
   }
   else if (id.includes("movie-")){
