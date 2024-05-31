@@ -100,9 +100,9 @@ export const Detail = () => {
               </div>
             </div>
           </div>
-          <div className=" p-2  px-4  w-full ">
-            <Tabs className=" py-2 w-full ">
-              <TabList className=" overflow-x-auto space-x-16 flex font-bold text-white ">
+          <div className=" w-full ">
+            <Tabs className="p-4">
+              <TabList className="overflow-x-auto flex  space-x-10 font-bold text-white scrollbar-none ">
                 <Tab>Overview</Tab>
                 <Tab>Cast</Tab>
                 <Tab>Trailer</Tab>
