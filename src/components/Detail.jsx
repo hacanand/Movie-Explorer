@@ -68,14 +68,14 @@ export const Detail = () => {
             <HiChevronLeft />
           </Link>
 
-          <div className=" p-2 pt-10 h-full w-full  flex  ">
-            <div className="w-1/3 h-fit">
+          <div className=" p-2 pt-10 h-full w-full flex max-md:flex-col">
+            <div className="md:w-1/3 w-full h-fit">
               <img
                 src={moviedet?.image === null ? noImage : moviedet?.image}
                 className="rounded object-contain h-full w-full"
               />
             </div>
-            <div className="flex flex-col px-8 gap-2 w-2/3">
+            <div className="flex flex-col px-8 gap-2 w-full md:w-2/3">
               <h1 className="text-white text-2xl font-bold">
                 {moviedet?.name}
               </h1>
@@ -105,7 +105,7 @@ export const Detail = () => {
           </div>
           <div className=" p-2  px-4  w-full ">
             <Tabs className=" py-2 w-full ">
-              <TabList className="w-8 space-x-16 flex font-bold text-white ">
+              <TabList className=" overflow-x-auto space-x-16 flex font-bold text-white ">
                 <Tab>Overview</Tab>
                 <Tab>Cast</Tab>
                 <Tab>Trailer</Tab>
@@ -220,7 +220,7 @@ export const Detail = () => {
               </TabPanel>
               <TabPanel>
                 <div className="text-white w-full pt-5 px-3 font-Roboto  ">
-                  <div className="md:px-5 flex flex-row my-5 max-w-full flex-start overflow-x-hidden flex-wrap gap-4  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
+                  <div className="md:px-5 flex flex-row my-5 max-w-full overflow-x-hidden items-center justify-center flex-wrap gap-4  relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                     {moviedet?.characters?.map((cast) => (
                       <div
                         key={cast.id}
