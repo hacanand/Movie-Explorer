@@ -44,7 +44,7 @@ export function MovieProvider({ children }) {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://api4.thetvdb.com/v4/search?query=${query}`,
+      url: `https://api4.thetvdb.com/v4/search?query=${query}&type=movie`,
       headers: {
         Authorization: APIKEY,
       },

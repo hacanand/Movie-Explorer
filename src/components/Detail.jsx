@@ -16,10 +16,20 @@ export const Detail = () => {
   const APIKEY = import.meta.env.VITE_API_KEY;
   const [loader, setLoader] = useState(true);
 
-  const { id } = useParams();
-  if(isNaN(id)) return toast.error("Invalid Movie ID Id is not Number")
+ 
+  let { id } = useParams();
+  if ( typeof id === "string" && id.includes("movie-")==false) {
+    id = id;
+  }
+  else if (id.includes("movie-")){
+    id = id.split("-")[1];
+  } 
+  else {
+    navigate("/");
+    toast.error("Invalid Movie ID");
+  }
+   
   //console.log(typeof data)
-  
 
   const [moviedet, setMoviedet] = useState([]);
 
@@ -107,7 +117,9 @@ export const Detail = () => {
                   <table className="w-full text-blue-300   pt-5 px-3 font-Roboto  ">
                     <tbody>
                       <tr className=" border-neutral-700 border-y-2">
-                        <td className="text-left capitalize">Original Title</td>
+                        <td className="text-left capitalize py-4">
+                          Original Title
+                        </td>
                         <td className="text-right">{moviedet?.name}</td>
                       </tr>
                       <tr className=" border-neutral-700 border-b-2">
