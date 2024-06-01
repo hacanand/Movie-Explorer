@@ -20,7 +20,7 @@ function App() {
   return (
     <MovieProvider>
       <Helmet>
-       <meta property="og:image" content={logo}/>
+        <meta property="og:image" content={logo} />
       </Helmet>
       <ToastContainer
         position="bottom-center"
@@ -38,15 +38,15 @@ function App() {
       <Navbar />
       <div className="md:ml-[15rem]">
         <Routes>
-          <Route path='/' element={<Container />} />
-          <Route path='/trending' element={<Trending />} />
-          <Route path='/moviedetail/:id' element={<Detail />} />
-          <Route path="/search/:query" element={<Container/>}/>
-          <Route path="/search/" element={<Container/>}/>
+          <Route path="/" element={<Container />} />
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/moviedetail/:id" element={<Detail />} />
+          <Route path="/search/:query" element={<Container />} />
+          <Route path="/search/" element={<Container />} />
         </Routes>
       </div>
     </MovieProvider>
-  )
+  );
 }
 
 export default App

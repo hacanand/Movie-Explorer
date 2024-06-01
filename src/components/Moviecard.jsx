@@ -7,6 +7,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
 
 function Moviecard({ movie }) {
+ 
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -19,6 +20,7 @@ function Moviecard({ movie }) {
         <h1 className="bg-gradient-to-r from-pink-300  to-indigo-600 inline-block text-transparent bg-clip-text   text-xl font-bold  break-normal break-words">
           {movie.title || movie.name}
         </h1>
+        <span>{ movie?.year}</span>
       </div>
 
       <Link
